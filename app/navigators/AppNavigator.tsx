@@ -8,7 +8,17 @@ const Stack = createNativeStackNavigator();
 
 function AppStack() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: 'red',
+        },
+        headerTitleStyle: {
+          color: 'white',
+        },
+        headerTintColor: 'white',
+      }}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
