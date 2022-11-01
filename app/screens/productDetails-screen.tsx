@@ -3,7 +3,9 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {ImageSlider} from 'react-native-image-slider-banner';
 
-const ProductDetails = () => {
+const ProductDetails = ({route}: any) => {
+  const {name, producer, cost, rating, description} = route.params;
+
   return (
     <View>
       {/* <Image
@@ -20,19 +22,19 @@ const ProductDetails = () => {
           // eslint-disable-next-line prettier/prettier
           { img: 'https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg' },
           // eslint-disable-next-line prettier/prettier
-          { img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg' }
+          { img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg' },
         ]}
-        autoPlay={true}
+        autoPlay={false}
         onItemChanged={item => console.log('item', item)}
         closeIconColor="#fff"
       />
       <View style={styles.productCard}>
         <View>
-          <Text style={styles.productName}>Coffee Table</Text>
-          <Text style={styles.productCompanyName}>Luna</Text>
+          <Text style={styles.productName}>{name}</Text>
+          <Text style={styles.productCompanyName}>{producer}</Text>
           <View style={styles.flexRow}>
-            <Text style={styles.productPrice}>Rs. 5000</Text>
-            <Text style={styles.productPrice}>Rating 3</Text>
+            <Text style={styles.productPrice}>Rs. {cost}</Text>
+            <Text style={styles.productPrice}>Rating {rating}</Text>
           </View>
         </View>
         <TouchableOpacity>
@@ -40,7 +42,7 @@ const ProductDetails = () => {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.productDescription}>Description</Text>
+      <Text style={styles.productDescription}>{description}</Text>
     </View>
   );
 };

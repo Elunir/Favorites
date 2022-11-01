@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     padding: 8,
+    marginTop: 10
   },
   productContent: {
     flexDirection: 'row',
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
   productImage: {
     width: 100,
     height: 100,
+    borderRadius: 14
   },
   productName: {
     fontSize: 18,
