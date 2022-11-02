@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {ImageSlider} from 'react-native-image-slider-banner';
 
 const ProductDetails = ({route}: any) => {
-  const {name, producer, cost, rating, description} = route.params;
+  const {name, producer, cost, rating, description, isFavorite} = route.params;
 
   return (
     <View>
@@ -38,7 +38,11 @@ const ProductDetails = ({route}: any) => {
           </View>
         </View>
         <TouchableOpacity>
-          <Icon style={styles.productFavoriteIcon} name={'heart'} size={28} />
+          <Icon
+            style={styles.productFavoriteIcon}
+            name={isFavorite === true ? 'heart' : 'heart-o'}
+            size={28}
+          />
         </TouchableOpacity>
       </View>
 

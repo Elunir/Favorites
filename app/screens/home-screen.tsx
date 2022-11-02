@@ -1,26 +1,25 @@
 import React from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList} from 'react-native';
 import ProductCard from '../components/ProductCard';
 import {data} from '../api/data';
 
 const HomeScreen = ({navigation}: any) => {
   return (
-    <View>
-      <FlatList
-        data={data}
-        renderItem={({item}) => (
-          <ProductCard
-            name={item.name}
-            company={item.producer}
-            price={item.cost}
-            gotoDetail={() => {
-              navigation.navigate('ProductDetails', item);
-            }}
-          />
-        )}
-      />
-      {/* <Listing /> */}
-    </View>
+    <FlatList
+      data={data}
+      renderItem={({item}) => (
+        <ProductCard
+          name={item.name}
+          company={item.producer}
+          price={item.cost}
+          image={item.product_images}
+          isFavorite={item.isFavorite}
+          gotoDetail={() => {
+            navigation.navigate('ProductDetails', item);
+          }}
+        />
+      )}
+    />
   );
 };
 

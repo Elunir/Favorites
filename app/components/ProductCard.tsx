@@ -1,16 +1,37 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Product {
   name: string;
   company: string;
   price: number;
+  image: string;
+  isFavorite: boolean;
   gotoDetail: () => void;
 }
 
 const ProductCard = (product: Product) => {
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const storeData = async (value: any) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('favorites', jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const favData = await AsyncStorage.getItem('favorites');
+      return favData;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const toggleFavorite = () => {
     console.log(isFavorite);
@@ -43,7 +64,7 @@ const ProductCard = (product: Product) => {
       <TouchableOpacity onPress={() => toggleFavorite()}>
         <Icon
           style={styles.productFavoriteIcon}
-          name={isFavorite === true ? 'heart' : 'heart-o'}
+          name={product.isFavorite === true ? 'heart' : 'heart-o'}
           size={28}
         />
       </TouchableOpacity>
@@ -59,7 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     padding: 8,
-    marginTop: 10
+    marginTop: 10,
   },
   productContent: {
     flexDirection: 'row',
@@ -71,7 +92,7 @@ const styles = StyleSheet.create({
   productImage: {
     width: 100,
     height: 100,
-    borderRadius: 14
+    borderRadius: 14,
   },
   productName: {
     fontSize: 18,
