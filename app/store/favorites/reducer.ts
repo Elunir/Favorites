@@ -17,15 +17,18 @@ export default (state = initialState, action: FavoriteActions) => {
         ...state,
       };
     case ADD_TO_FAVORITES:
+      if (!state.favorites.includes(action.id)) {
+        state.favorites.push(action.id)
+      }
       return {
         ...state,
-        id: state.favorites.push(action.id),
+        id: action.id,
       };
     case REMOVE_FAVORITES:
-      const newTodo = state.favorites.filter(
+      const newFavorites = state.favorites.filter(
         favorites => favorites.id !== action.id,
       );
-      state.favorites = newTodo;
+      state.favorites = newFavorites;
       return {
         ...state,
       };
