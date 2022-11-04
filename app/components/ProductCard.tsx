@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {FETCH_FAVORITES} from '../store/favorites/actionTypes';
+import {addFavorites, fetchTodo} from '../store/favorites/actions';
 
 interface Product {
+  id: number;
   name: string;
   company: string;
   price: number;
@@ -14,24 +18,27 @@ interface Product {
 
 const ProductCard = (product: Product) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const dispatch = useDispatch();
 
-  const storeData = async (value: any) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('favorites', jsonValue);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const storeData = async (value: any) => {
+  //   try {
+  //     const jsonValue = JSON.stringify(value);
+  //     await AsyncStorage.setItem('favorites', jsonValue);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  const getData = async () => {
-    try {
-      const favData = await AsyncStorage.getItem('favorites');
-      return favData;
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const favData = await AsyncStorage.getItem('favorites');
+  //     return favData;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  const favorites = useSelector((state: any) => state.favorite.favorites);
 
   const toggleFavorite = () => {
     console.log(isFavorite);
@@ -39,8 +46,10 @@ const ProductCard = (product: Product) => {
       setIsFavorite(false);
     } else {
       setIsFavorite(true);
+      dispatch(addFavorites(product.id));
     }
   };
+
   return (
     <View style={styles.productContainer}>
       <TouchableOpacity
